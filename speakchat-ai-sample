@@ -1,0 +1,19 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route("/api/v1/message", methods=["POST"])
+def chat_message():
+    data = request.json
+    user_msg = data.get("message", "")
+    
+    reply = f"Echo (ตัวอย่าง): {user_msg}"
+    
+    return jsonify({
+        "user_id": data.get("user_id"),
+        "response": reply,
+        "timestamp": "2025-11-19T12:00:00Z"
+    })
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
