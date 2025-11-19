@@ -1,0 +1,63 @@
+// SCanzaclip Android Sample App - MainActivity.kt package com.scanzaclip.app
+
+import android.os.Bundle import androidx.appcompat.app.AppCompatActivity import android.widget.Button import android.widget.EditText import android.widget.TextView
+
+class MainActivity : AppCompatActivity() {
+
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
+
+    val inputMsg = findViewById<EditText>(R.id.inputMsg)
+    val sendBtn = findViewById<Button>(R.id.sendBtn)
+    val chatView = findViewById<TextView>(R.id.chatView)
+
+    sendBtn.setOnClickListener {
+        val message = inputMsg.text.toString()
+        val response = SCanzaclipAPI.sendChatMessage(message)
+        chatView.append("You: $message\nBot: $response\n")
+        inputMsg.text.clear()
+    }
+}
+
+}
+
+// activity_main.xml /* <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical" android:layout_width="match_parent"
+android:layout_height="match_parent" android:padding="16dp">
+
+<TextView
+    android:id="@+id/chatView"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:scrollbars="vertical" />
+
+<EditText
+    android:id="@+id/inputMsg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Type message"/>
+
+<Button
+    android:id="@+id/sendBtn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Send"/>
+
+</LinearLayout>
+*/// SCanzaclipAPI.kt - ตัวอย่างเชื่อมต่อ backend package com.scanzaclip.app
+
+object SCanzaclipAPI { fun sendChatMessage(message: String): String { // ตัวอย่างเชื่อม backend SCanzaclip API // ปรับให้เรียก GPT หรือระบบ SCanzaclip จริง return "[Sample Response for '$message']" }
+
+fun login(user: String, token: String): Boolean {
+    // login SCanzaclip
+    return true
+}
+
+fun createPayment(amount: Double, currency: String): Boolean {
+    // เชื่อม Stripe หรือ SC Wallet
+    return true
+}
+
+}
